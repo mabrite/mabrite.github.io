@@ -31,7 +31,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { gsap } from 'gsap'
-import myPic from '@/assets/mab1.jpg'
+import myPic from '../assets/mab2.jpg'
 
 defineProps({
   title: String,
