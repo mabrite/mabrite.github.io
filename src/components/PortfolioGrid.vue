@@ -29,7 +29,8 @@ export default {
         {
           title: 'E-commerce Platform',
           thumbnail: 'https://images.pexels.com/photos/4968392/pexels-photo-4968392.jpeg?auto=compress&cs=tinysrgb&w=800',
-          tags: ['Vue', 'Node.js', 'MongoDB']https://swift-sell-spot.lovable.app/'
+          tags: ['Vue', 'Node.js', 'MongoDB'],
+          link: 'https://swift-sell-spot.lovable.app/'
         },
         {
           title: 'Event Management System',
@@ -37,12 +38,11 @@ export default {
           tags: ['React', 'Firebase'],
           link: 'https://lively-event-space.lovable.app/'
         },
-        {,
-          link: '
+        {
           title: 'Portfolio Website',
           thumbnail: 'https://images.pexels.com/photos/6476266/pexels-photo-6476266.jpeg?auto=compress&cs=tinysrgb&w=800',
           tags: ['Vue', 'GSAP'],
-          link: 'https://your-portfolio-link.com'
+          link: 'https://your-portfolio-link.com',
         },
         {
           title: 'Weather Dashboard',
