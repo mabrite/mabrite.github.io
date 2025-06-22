@@ -1,5 +1,5 @@
-<template>
-  <nav class="navigation" role="navigation" aria-label="Main Navigation" ref="nav">
+<template> 
+  <nav class="navigation" role="navigation" aria-label="Main Navigation">
     <div class="container">
       <router-link to="/" class="logo" aria-label="MABE Home">
         Welcome To My Portfolio
@@ -7,23 +7,19 @@
 
       <button
         class="hamburger"
-        @click.stop="toggleMenu"
+        @click="isMenuOpen = !isMenuOpen"
         :aria-expanded="isMenuOpen.toString()"
         aria-label="Toggle navigation menu"
       >
-        <span class="bar" :class="{ 'bar-1': isMenuOpen }"></span>
-        <span class="bar" :class="{ 'bar-2': isMenuOpen }"></span>
-        <span class="bar" :class="{ 'bar-3': isMenuOpen }"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
       </button>
 
-      <div 
-        :class="['nav-links', { open: isMenuOpen }]" 
-        @click.stop
-        ref="navLinks"
-      >
-        <router-link to="/" exact-active-class="active-tab" class="tab-card" @click="closeMenu">Home</router-link>
-        <router-link to="/skills" exact-active-class="active-tab" class="tab-card" @click="closeMenu">Skills</router-link>
-        <router-link to="/contact" exact-active-class="active-tab" class="tab-card" @click="closeMenu">Contact</router-link>
+      <div :class="['nav-links', { open: isMenuOpen }]">
+        <router-link to="/" exact-active-class="active-tab" class="tab-card" @click="isMenuOpen = false">Home</router-link>
+        <router-link to="/skills" exact-active-class="active-tab" class="tab-card" @click="isMenuOpen = false">Skills</router-link>
+        <router-link to="/contact" exact-active-class="active-tab" class="tab-card" @click="isMenuOpen = false">Contact</router-link>
       </div>
     </div>
   </nav>
@@ -37,39 +33,11 @@ export default {
       isMenuOpen: false,
     };
   },
-  methods: {
-    toggleMenu() {
-      this.isMenuOpen = !this.isMenuOpen;
-    },
-    closeMenu() {
-      this.isMenuOpen = false;
-    },
-    handleClickOutside(event) {
-      if (this.isMenuOpen && 
-          !this.$refs.nav.contains(event.target) && 
-          !this.$refs.navLinks.contains(event.target)) {
-        this.closeMenu();
-      }
-    },
-    handleResize() {
-      if (window.innerWidth > 768) {
-        this.closeMenu();
-      }
-    }
-  },
-  mounted() {
-    document.addEventListener('click', this.handleClickOutside);
-    window.addEventListener('resize', this.handleResize);
-  },
-  beforeDestroy() {
-    document.removeEventListener('click', this.handleClickOutside);
-    window.removeEventListener('resize', this.handleResize);
-  }
 }
 </script>
 
 <style scoped>
-/* Navigation base */
+/* Base Navbar Styles */
 .navigation {
   position: sticky;
   top: 0;
@@ -85,16 +53,14 @@ export default {
   animation: fadeInDown 0.6s ease forwards;
 }
 
-/* Container flex layout */
+/* Container */
 .container {
   max-width: 1200px;
-  width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
 }
 
 /* Logo */
@@ -111,13 +77,12 @@ export default {
   color: #ff4d94;
 }
 
-/* Nav links */
+/* Nav Links */
 .nav-links {
   display: flex;
   gap: 1rem;
 }
 .tab-card {
-  position: relative;
   display: inline-block;
   padding: 0.6rem 1.4rem;
   background: rgba(255, 182, 193, 0.75);
@@ -126,7 +91,7 @@ export default {
   color: #4a0033;
   text-decoration: none;
   box-shadow: 0 3px 6px rgba(255, 105, 180, 0.35);
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.3s ease;
 }
 .tab-card:hover {
   background-color: #ff6699;
@@ -143,7 +108,7 @@ export default {
   font-weight: 700;
 }
 
-/* Hamburger button */
+/* Hamburger */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -153,66 +118,79 @@ export default {
   border: none;
   cursor: pointer;
   padding: 0.5rem;
-  z-index: 120;
 }
 .bar {
   width: 25px;
   height: 3px;
   background-color: #4a0033;
   border-radius: 2px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.bar-1 {
-  transform: translateY(8px) rotate(45deg);
-}
-.bar-2 {
-  opacity: 0;
-}
-.bar-3 {
-  transform: translateY(-8px) rotate(-45deg);
+  transition: 0.3s ease;
 }
 
-/* Mobile Styles */
+/* Tablet Responsiveness */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+  }
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
   .nav-links {
-    position: fixed;
-    top: 80px;
-    right: 1rem;
-    background-color: rgba(255, 182, 193, 0.95);
-    border: 2px solid #d81e5b;
-    border-radius: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
     flex-direction: column;
-    gap: 0.5rem;
-    width: 200px;
+    background: rgba(255, 192, 203, 0.98);
+    border: 2px solid #d81e5b;
+    border-radius: 15px;
+    padding: 1.0rem 1.2rem;
+    gap: 1rem;
+    margin-top: 1rem;
     display: none;
-    padding: 1rem;
-    box-shadow: 0 8px 16px rgba(255, 105, 180, 0.5);
-    z-index: 100;
-    transform-origin: top right;
-    transform: scale(0.95);
-    opacity: 0;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    animation: slideDown 0.3s ease-in-out;
+    z-index: 99;
   }
+
   .nav-links.open {
     display: flex;
-    transform: scale(1);
-    opacity: 1;
   }
+
   .tab-card {
+    padding: 0.8rem 1.2rem;
     width: 100%;
-    text-align: center;
-    margin-bottom: 0;
+    font-size: 1rem;
+    text-align: left;
   }
+
   .hamburger {
     display: flex;
+    z-index: 100;
   }
 }
 
-/* Animation */
+/* Animations */
 @keyframes fadeInDown {
   from {
     opacity: 0;
     transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
   }
   to {
     opacity: 1;
