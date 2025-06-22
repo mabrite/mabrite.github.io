@@ -29,16 +29,16 @@ export default {
         {
           title: 'E-commerce Platform',
           thumbnail: 'https://images.pexels.com/photos/4968392/pexels-photo-4968392.jpeg?auto=compress&cs=tinysrgb&w=800',
-          tags: ['Vue', 'Node.js', 'MongoDB'],
-          link: 'https://your-ecommerce-project-link.com'
+          tags: ['Vue', 'Node.js', 'MongoDB']https://swift-sell-spot.lovable.app/'
         },
         {
-          title: 'Task Management App',
+          title: 'Event Management System',
           thumbnail: 'https://images.pexels.com/photos/7693661/pexels-photo-7693661.jpeg?auto=compress&cs=tinysrgb&w=800',
           tags: ['React', 'Firebase'],
-          link: 'https://your-task-app-link.com'
+          link: 'https://lively-event-space.lovable.app/'
         },
-        {
+        {,
+          link: '
           title: 'Portfolio Website',
           thumbnail: 'https://images.pexels.com/photos/6476266/pexels-photo-6476266.jpeg?auto=compress&cs=tinysrgb&w=800',
           tags: ['Vue', 'GSAP'],
