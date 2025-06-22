@@ -17,10 +17,7 @@
         <div class="description-card" ref="descriptionCard">
           <h2>About Me</h2>
           <p>
-            I'm passionate about Software Engineering, the craft of designing, 
-            developing, and maintaining reliable and efficient software solutions. 
-            It blends creativity with logic, allowing me to solve real-world problems through clean code, 
-            thoughtful architecture, and scalable systems.
+            Software Engineering excites me because it’s not just about writing code—it’s about crafting solutions. I thrive on designing efficient systems, solving complex problems, and turning ideas into scalable, maintainable software. To me, great engineering is a mix of innovation, logic, and attention to detail.
           </p>
         </div>
       </div>
