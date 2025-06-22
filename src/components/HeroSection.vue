@@ -17,7 +17,10 @@
         <div class="description-card" ref="descriptionCard">
           <h2>About Me</h2>
           <p>
-            Software Engineering excites me because it’s not just about writing code—it’s about crafting solutions. I thrive on designing efficient systems, solving complex problems, and turning ideas into scalable, maintainable software. To me, great engineering is a mix of innovation, logic, and attention to detail.
+            Software Engineering excites me because it’s not just about writing code—it’s 
+            about crafting solutions. I thrive on designing efficient systems, 
+            solving complex problems, and turning ideas into scalable, maintainable software.
+             To me, great engineering is a mix of innovation, logic, and attention to detail.
           </p>
         </div>
       </div>
