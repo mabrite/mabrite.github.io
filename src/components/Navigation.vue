@@ -1,5 +1,5 @@
 <template>
-  <nav class="navigation" role="navigation" aria-label="Main Navigation">
+  <nav class="navigation" role="navigation" aria-label="Main Navigation" ref="nav">
     <div class="container">
       <router-link to="/" class="logo" aria-label="MABE Home">
         Welcome To My Portfolio
@@ -7,19 +7,23 @@
 
       <button
         class="hamburger"
-        @click="isMenuOpen = !isMenuOpen"
+        @click.stop="toggleMenu"
         :aria-expanded="isMenuOpen.toString()"
         aria-label="Toggle navigation menu"
       >
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+        <span class="bar" :class="{ 'bar-1': isMenuOpen }"></span>
+        <span class="bar" :class="{ 'bar-2': isMenuOpen }"></span>
+        <span class="bar" :class="{ 'bar-3': isMenuOpen }"></span>
       </button>
 
-      <div :class="['nav-links', { open: isMenuOpen }]">
-        <router-link to="/" exact-active-class="active-tab" class="tab-card" @click="isMenuOpen = false">Home</router-link>
-        <router-link to="/skills" exact-active-class="active-tab" class="tab-card" @click="isMenuOpen = false">Skills</router-link>
-        <router-link to="/contact" exact-active-class="active-tab" class="tab-card" @click="isMenuOpen = false">Contact</router-link>
+      <div 
+        :class="['nav-links', { open: isMenuOpen }]" 
+        @click.stop
+        ref="navLinks"
+      >
+        <router-link to="/" exact-active-class="active-tab" class="tab-card" @click="closeMenu">Home</router-link>
+        <router-link to="/skills" exact-active-class="active-tab" class="tab-card" @click="closeMenu">Skills</router-link>
+        <router-link to="/contact" exact-active-class="active-tab" class="tab-card" @click="closeMenu">Contact</router-link>
       </div>
     </div>
   </nav>
@@ -33,6 +37,34 @@ export default {
       isMenuOpen: false,
     };
   },
+  methods: {
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+    closeMenu() {
+      this.isMenuOpen = false;
+    },
+    handleClickOutside(event) {
+      if (this.isMenuOpen && 
+          !this.$refs.nav.contains(event.target) && 
+          !this.$refs.navLinks.contains(event.target)) {
+        this.closeMenu();
+      }
+    },
+    handleResize() {
+      if (window.innerWidth > 768) {
+        this.closeMenu();
+      }
+    }
+  },
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+    window.addEventListener('resize', this.handleResize);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.handleClickOutside);
+    window.removeEventListener('resize', this.handleResize);
+  }
 }
 </script>
 
@@ -62,6 +94,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 /* Logo */
@@ -120,39 +153,55 @@ export default {
   border: none;
   cursor: pointer;
   padding: 0.5rem;
+  z-index: 120;
 }
 .bar {
   width: 25px;
   height: 3px;
   background-color: #4a0033;
   border-radius: 2px;
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.bar-1 {
+  transform: translateY(8px) rotate(45deg);
+}
+.bar-2 {
+  opacity: 0;
+}
+.bar-3 {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
   .nav-links {
-    position: absolute;
-    top: 100%;
-    right: 0;
+    position: fixed;
+    top: 80px;
+    right: 1rem;
     background-color: rgba(255, 182, 193, 0.95);
     border: 2px solid #d81e5b;
     border-radius: 10px;
     flex-direction: column;
-    gap: 0;
-    width: 100px;
+    gap: 0.5rem;
+    width: 200px;
     display: none;
     padding: 1rem;
     box-shadow: 0 8px 16px rgba(255, 105, 180, 0.5);
-    margin-top: 1rem;
+    z-index: 100;
+    transform-origin: top right;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
   .nav-links.open {
     display: flex;
+    transform: scale(1);
+    opacity: 1;
   }
   .tab-card {
     width: 100%;
-    text-align: left;
-    margin-bottom: 0.5rem;
+    text-align: center;
+    margin-bottom: 0;
   }
   .hamburger {
     display: flex;
